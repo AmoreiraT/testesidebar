@@ -1,25 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { Switch, Route} from "react-router-dom";
+import { makeStyles } from "@material-ui/styles";
+
+import Home from "./views/home/home";
+import Contact from "./views/contato/contact";
+import About from "./views/sobre/about";
+import Drawer from './components/navbar/drawer';
+
+const useStyles = makeStyles({
+  container: {
+    display: "flex"
+  }
+});
 
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.container}>
+      <Drawer/>
+      <Switch>
+        <Route exact from="/" render={props => <Home {...props} />} />
+        <Route exact path="/contact" render={props => <Contact {...props} />} />
+        <Route exact path="/about" render={props => <About {...props} />} />
+      </Switch>
     </div>
   );
 }
 
 export default App;
+
